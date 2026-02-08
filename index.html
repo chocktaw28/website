@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayin Panesar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-elevated: #111111;
+            --bg-card: #161616;
+            --text-primary: #e8e4df;
+            --text-secondary: #8a8580;
+            --text-muted: #5a5652;
+            --accent: #c9a87c;
+            --accent-dim: #7a6b52;
+            --accent-glow: rgba(201, 168, 124, 0.08);
+            --border: #222;
+            --border-hover: #333;
+            --ice: #6ec8db;
+            --ice-dim: rgba(110, 200, 219, 0.15);
+            --code: #8bc59e;
+            --code-dim: rgba(139, 197, 158, 0.15);
+            --flag-green: #009c3b;
+            --flag-yellow: #ffdf00;
+            --flag-blue: #002776;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--bg);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+            overflow-x: hidden;
+        }
+
+        /* NOISE OVERLAY */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .nav-name {
+            font-family: 'EB Garamond', serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--accent-dim);
+        }
+
+        .hero h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(48px, 7vw, 96px);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .hero h1 .accent {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero-description {
+            max-width: 620px;
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 48px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .meta-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .meta-value a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-dim);
+            transition: border-color 0.3s;
+        }
+
+        .meta-value a:hover {
+            border-color: var(--accent);
+        }
+
+        /* FLOATING ICE PARTICLE BACKGROUND */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .ice-line {
+            position: absolute;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--ice), transparent);
+            animation: iceDrift 8s infinite ease-in-out;
+        }
+
+        @keyframes iceDrift {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(2deg); opacity: 0.7; }
+        }
+
+        /* SECTION STYLING */
+        section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-dim);
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* INDEX GRID — TROUSDALE STYLE */
+        .index-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+
+        .index-item {
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .index-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s ease;
+        }
+
+        .index-item:hover {
+            background: var(--bg-card);
+            border-color: var(--border-hover);
+        }
+
+        .index-item:hover::before {
+            height: 100%;
+        }
+
+        .index-item .year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .index-item h3 {
+            font-family: 'EB Garamond', serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .index-item .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .index-item .description {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .index-item .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            padding: 3px 10px;
+            border-radius: 2px;
+            margin-top: 12px;
+            margin-right: 6px;
+        }
+
+        .tag-ice {
+            background: var(--ice-dim);
+            color: var(--ice);
+        }
+
+        .tag-code {
+            background: var(--code-dim);
+            color: var(--code);
+        }
+
+        .tag-business {
+            background: var(--accent-glow);
+            color: var(--accent);
+        }
+
+        /* FULL-WIDTH HIGHLIGHT */
+        .index-item.highlight {
+            grid-column: 1 / -1;
+            background: var(--bg-card);
+            border-color: var(--accent-dim);
+        }
+
+        .index-item.highlight::before {
+            height: 100%;
+            background: var(--accent);
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+            margin-bottom: 80px;
+        }
+
+        .stat {
+            padding: 32px;
+            text-align: center;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: background 0.3s;
+        }
+
+        .stat:hover {
+            background: var(--bg-card);
+        }
+
+        .stat-number {
+            font-family: 'EB Garamond', serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* TIMELINE — SHAILESH STYLE */
+        .timeline {
+            position: relative;
+            padding-left: 80px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            padding: 24px 32px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -58px;
+            top: 28px;
+            width: 11px;
+            height: 11px;
+            border: 2px solid var(--accent);
+            background: var(--bg);
+            border-radius: 50%;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: -80px;
+            top: 44px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            writing-mode: vertical-lr;
+            letter-spacing: 1px;
+        }
+
+        .timeline-item h3 {
+            font-family: 'EB Garamond', serif;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .timeline-item .role {
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .timeline-item p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* SKILLS GRID */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .skill-category {
+            padding: 32px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            background: var(--bg-card);
+        }
+
+        .skill-category h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(34, 34, 34, 0.5);
+        }
+
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+
+        /* QUOTE BLOCK */
+        .quote-block {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quote-block blockquote {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(24px, 3vw, 36px);
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 800px;
+        }
+
+        .quote-block blockquote em {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .quote-attribution {
+            margin-top: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* CONNECT / FOOTER */
+        .connect {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2px;
+        }
+
+        .connect-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 28px 24px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            transition: all 0.3s;
+            background: var(--bg);
+        }
+
+        .connect-link:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-dim);
+        }
+
+        .connect-link .link-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .connect-link .link-value {
+            font-family: 'EB Garamond', serif;
+            font-size: 18px;
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .connect-link:hover .link-value {
+            color: var(--accent);
+        }
+
+        .connect-link .link-arrow {
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .connect-link:hover .link-arrow {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* BRAZIL FLAG ACCENT LINE */
+        .flag-line {
+            height: 2px;
+            background: linear-gradient(to right, var(--flag-green) 33%, var(--flag-yellow) 33%, var(--flag-yellow) 66%, var(--flag-blue) 66%);
+            width: 60px;
+            margin: 40px 0;
+        }
+
+        /* WIKIPEDIA BADGE */
+        .wiki-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid var(--accent-dim);
+            background: var(--accent-glow);
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-bottom: 32px;
+        }
+
+        .wiki-badge:hover {
+            background: rgba(201, 168, 124, 0.15);
+            border-color: var(--accent);
+        }
+
+        .wiki-badge .wiki-icon {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'EB Garamond', serif;
+            letter-spacing: -0.5px;
+        }
+
+        .wiki-badge .wiki-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .wiki-badge .wiki-arrow {
+            color: var(--accent);
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .wiki-badge:hover .wiki-arrow {
+            transform: translateX(3px);
+        }
+
+        /* CONNECT HIGHLIGHT */
+        .connect-link.highlight-link {
+            border-color: var(--accent-dim);
+            background: var(--accent-glow);
+        }
+
+        .connect-link.highlight-link:hover {
+            background: rgba(201, 168, 124, 0.15);
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 16px 20px; }
+            .nav-links { gap: 16px; }
+            .nav-links a { font-size: 11px; }
+            .hero { padding: 100px 20px 60px; }
+            section { padding: 60px 20px; }
+            .index-grid { grid-template-columns: 1fr; }
+            .index-item.highlight { grid-column: 1; }
+            .stats-bar { grid-template-columns: repeat(3, 1fr); }
+            .skills-grid { grid-template-columns: 1fr; }
+            .hero-meta { gap: 24px; }
+            .timeline { padding-left: 60px; }
+            .timeline::before { left: 20px; }
+            .timeline-dot { left: -48px; }
+            .timeline-year { left: -60px; }
+            .quote-block { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-name">Jayin Panesar</div>
+        <ul class="nav-links">
+            <li><a href="#about">Index</a></li>
+            <li><a href="#athletic">Athletic</a></li>
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#academic">Academic</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="about">
+        <div class="hero-bg">
+            <div class="ice-line" style="left:20%; height:200px; animation-delay:0s;"></div>
+            <div class="ice-line" style="left:45%; height:300px; animation-delay:1.5s;"></div>
+            <div class="ice-line" style="left:70%; height:180px; animation-delay:3s;"></div>
+            <div class="ice-line" style="left:85%; height:250px; animation-delay:4.5s;"></div>
+        </div>
+
+        <div class="hero-label fade-in stagger-1">Portfolio 2026</div>
+
+        <h1 class="fade-in stagger-2">
+            Jayin<br>
+            <span class="accent">Panesar</span>
+        </h1>
+
+        <p class="hero-description fade-in stagger-3">
+            International ice dancer representing Brazil. Co-Founder & CTO building AI automation for enterprise. 
+            Data science student at LSE. Operating at the intersection of elite athletics, 
+            machine learning, and venture-building. The kind of person who qualifies for 
+            ISU Championships in the morning and deploys production AI systems in the afternoon.
+        </p>
+
+        <div class="flag-line fade-in stagger-4"></div>
+
+        <div class="hero-meta fade-in stagger-5">
+            <div class="meta-item">
+                <span class="meta-label">Based in</span>
+                <span class="meta-value">London</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Education</span>
+                <span class="meta-value">LSE, Data Science</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Venture</span>
+                <span class="meta-value">Lomond.ai</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Wikipedia</span>
+                <span class="meta-value"><a href="https://en.wikipedia.org/wiki/Jayin_Panesar" target="_blank">View Page →</a></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS -->
+    <section>
+        <div class="stats-bar reveal">
+            <div class="stat">
+                <div class="stat-number">11+</div>
+                <div class="stat-label">Years Competitive Skating</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">ISU Championships</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">International Competitions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1st</div>
+                <div class="stat-label">Brazilian Ice Dancers at an ISU Championship</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2M+</div>
+                <div class="stat-label">Social Media Views from Skating</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">22</div>
+                <div class="stat-label">Years Old</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ATHLETIC CAREER -->
+    <section id="athletic">
+        <div class="section-header reveal">
+            <span class="section-number">01</span>
+            <h2 class="section-title">Athletic Career</h2>
+            <span class="section-subtitle">Ice Dance, Brazil 🇧🇷</span>
+        </div>
+
+        <div class="index-grid">
+            <div class="index-item highlight reveal">
+                <div class="year">2010 — Present</div>
+                <h3>International Ice Dancer for Brazil</h3>
+                <div class="subtitle">Partner: Natalia Pallu-Neves &middot; Coaches: Nicholas Buckland & Penny Coomes</div>
+                <div class="description">
+                    First-ever Brazilian ice dance team to compete at ISU Championship level. 
+                    Competing across ISU Challenger Series, Four Continents Championships, and major international competitions worldwide.
+                </div>
+                <span class="tag tag-ice">ISU Competitor</span>
+                <span class="tag tag-ice">Olympic Track</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">Jan 2026</div>
+                <h3>Four Continents Championships</h3>
+                <div class="subtitle">Beijing, China &middot; 14th Place</div>
+                <div class="description">
+                    Competed at the ISU Four Continents Championships 2026 in Beijing. 
+                    Second Four Continents appearance for Brazil, continuing to build on ISU Championship experience.
+                </div>
+                <span class="tag tag-ice">ISU Championship</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">Feb 2024</div>
+                <h3>Four Continents Championships</h3>
+                <div class="subtitle">Shanghai, China &middot; 14th Place</div>
+                <div class="description">
+                    Historic debut. Became the first Brazilian ice dance team to ever compete at an ISU Championship event. 
+                    Secured Brazil's first-ever Four Continents entry through minimum technical score qualification.
+                </div>
+                <span class="tag tag-ice">Historic First</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">2024–25</div>
+                <h3>ISU Challenger Series</h3>
+                <div class="subtitle">Multiple International Events</div>
+                <div class="description">
+                    Competed at Denis Ten Memorial Challenge, Trophée Métropole Nice Côte d'Azur, 
+                    Pavel Roman Memorial, Bosphorus Cup, Golden Spin of Zagreb, and Ephesus Cup, 
+                    consistently pushing personal bests across the circuit.
+                </div>
+                <span class="tag tag-ice">Challenger Series</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">2023</div>
+                <h3>Senior International Debut</h3>
+                <div class="subtitle">Egna Dance Trophy &middot; First Senior Brazil Team</div>
+                <div class="description">
+                    Made history as the first senior ice dance team to ever represent Brazil internationally. 
+                    Achieved qualifying technical scores for Four Continents at the Swiss Open Trophy.
+                </div>
+                <span class="tag tag-ice">Historic First</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">2022</div>
+                <h3>British Junior Championships</h3>
+                <div class="subtitle">Bronze Medal &middot; Junior Grand Prix</div>
+                <div class="description">
+                    Won the bronze medal at the 2022 British Junior Championships. Debuted internationally 
+                    on the Junior Grand Prix circuit in Courchevel, France. Subsequently switched national 
+                    representation to Brazil.
+                </div>
+                <span class="tag tag-ice">National Medal</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">2014</div>
+                <h3>British Championships, Juvenile</h3>
+                <div class="subtitle">Champion &middot; Age 10</div>
+                <div class="description">
+                    Won the British Championships in the Juvenile Class at age 10 at Bracknell Ice Skating Club. 
+                    Started skating at age 7.
+                </div>
+                <span class="tag tag-ice">National Champion</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <div class="quote-block reveal">
+        <blockquote>
+            Competing internationally while building a company from nothing requires the same skill: 
+            <em>relentless resourcefulness in the face of zero infrastructure.</em>
+        </blockquote>
+        <div class="quote-attribution">On balancing elite sport and venture-building</div>
+    </div>
+
+    <!-- VENTURES -->
+    <section id="ventures">
+        <div class="section-header reveal">
+            <span class="section-number">02</span>
+            <h2 class="section-title">Ventures & Technology</h2>
+            <span class="section-subtitle">Building with AI</span>
+        </div>
+
+        <div class="index-grid">
+            <div class="index-item highlight reveal">
+                <div class="year">2024 — Present</div>
+                <h3>Lomond.ai, Co-Founder & CTO</h3>
+                <div class="subtitle">AI Automation &middot; Privacy-First &middot; On-Premise Enterprise Solutions</div>
+                <div class="description">
+                    Building privacy-first, on-premise AI automation solutions for the automotive sector. 
+                    Paying enterprise clients with production systems deployed for root cause analysis 
+                    of vehicle infotainment logs. Built with n8n, Ollama, and custom NLP pipelines.
+                </div>
+                <span class="tag tag-business">Revenue Generating</span>
+                <span class="tag tag-code">Production AI</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">Current</div>
+                <h3>Root Cause Analysis Platform</h3>
+                <div class="subtitle">Automotive Diagnostics &middot; IVIS Systems</div>
+                <div class="description">
+                    Production desktop application analyzing vehicle infotainment system logs for automotive clients. 
+                    Implements sentiment analysis for error detection and automated report generation 
+                    for connectivity diagnostics.
+                </div>
+                <span class="tag tag-code">Python</span>
+                <span class="tag tag-code">NLP</span>
+            </div>
+
+            <div class="index-item reveal">
+                <div class="year">Current</div>
+                <h3>Sports Visual AI for Judging</h3>
+                <div class="subtitle">Computer Vision &middot; Figure Skating &middot; Judging Assistance</div>
+                <div class="description">
+                    Exploring AI-powered visual analysis tools for figure skating judging, applying computer vision 
+                    and pose estimation to assist with scoring accuracy and consistency. Leveraging unique domain 
+                    expertise as an active international competitor to build systems that understand the sport from the inside.
+                </div>
+                <span class="tag tag-code">Computer Vision</span>
+                <span class="tag tag-ice">Sports Tech</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACADEMIC -->
+    <section id="academic">
+        <div class="section-header reveal">
+            <span class="section-number">03</span>
+            <h2 class="section-title">Academic & Research</h2>
+            <span class="section-subtitle">LSE Data Science</span>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2023–26</div>
+                <h3>London School of Economics & Political Science</h3>
+                <div class="role">BSc Data Science, Third Year</div>
+                <p>
+                    Coursework spanning machine learning, financial statistics, Bayesian inference, 
+                    and time series modeling. Balancing a rigorous academic program with international 
+                    athletic competition and running a revenue-generating startup.
+                </p>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2025</div>
+                <h3>Estimating Recession Risk with Statistical Learning</h3>
+                <div class="role">ST310 Machine Learning Project, LSE</div>
+                <p>
+                    Structured comparison of linear, regularised, and tree-based models (Logistic, Ridge, LASSO, 
+                    Decision Tree, Random Forest) for estimating 12-month recession probability from macroeconomic 
+                    indicators. Designed a business-cycle cross-validation framework to prevent look-ahead bias 
+                    and evaluated models on AUC, Brier score, and log-loss under class imbalance.
+                </p>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2025</div>
+                <h3>Premier League Match Prediction</h3>
+                <div class="role">Applied Statistics Research Project, LSE</div>
+                <p>
+                    Investigating how much predictive power bookmaker-implied probabilities add when appended 
+                    to feature-based ML models predicting Premier League match outcomes. Built baseline models 
+                    using performance features (xG, shots, possession) over 10 seasons of data, then quantified 
+                    the marginal information gain from betting market odds using log-loss and Brier score 
+                    differentials with temporal train-validation-test splitting.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS -->
+    <section>
+        <div class="section-header reveal">
+            <span class="section-number">04</span>
+            <h2 class="section-title">Technical Arsenal</h2>
+            <span class="section-subtitle">Stack & Skills</span>
+        </div>
+
+        <div class="skills-grid reveal" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="skill-category">
+                <h4>AI / ML</h4>
+                <ul>
+                    <li>Python (Production)</li>
+                    <li>Ollama / Local LLMs</li>
+                    <li>NLP & Sentiment Analysis</li>
+                    <li>Computer Vision</li>
+                    <li>Bayesian Inference</li>
+                    <li>Time Series Modeling</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h4>Infrastructure</h4>
+                <ul>
+                    <li>n8n Workflow Automation</li>
+                    <li>On-Premise Deployment</li>
+                    <li>Node.js</li>
+                    <li>Desktop App Development</li>
+                    <li>API Integration</li>
+                    <li>Git & CI/CD</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY EXCEPTIONAL -->
+    <section>
+        <div class="section-header reveal">
+            <span class="section-number">05</span>
+            <h2 class="section-title">Why This Matters</h2>
+            <span class="section-subtitle">The Convergence</span>
+        </div>
+
+        <div class="index-grid">
+            <div class="index-item highlight reveal" style="border-color: var(--accent-dim);">
+                <h3>The Rarest Venn Diagram</h3>
+                <div class="description" style="font-size: 15px; color: var(--text-secondary); line-height: 1.8; max-width: 800px;">
+                    There are very few people who have a Wikipedia page for international athletic competition, 
+                    are building revenue-generating AI companies, and are studying Data Science at a top-5 global university. Simultaneously.
+                    <br><br>
+                    The discipline required to train 20+ hours a week while competing internationally taught me 
+                    how to operate under extreme resource constraints, perform under pressure, and commit to 
+                    multi-year trajectories with uncertain outcomes. That's exactly what founding a company demands.
+                    <br><br>
+                    I've navigated ISU bureaucracy, federation politics, coaching changes across continents, and a mandatory 
+                    one-year transition period to switch country representation, all while still a teenager. If I can do that at 18, I can build a company at 22.
+                </div>
+            </div>
+
+            <div class="index-item reveal">
+                <h3>Already Shipping</h3>
+                <div class="description">
+                    Not hypothetical. Lomond.ai has paying enterprise clients 
+                    and production systems deployed in automotive. Built while competing 
+                    internationally and studying at LSE.
+                </div>
+                <span class="tag tag-business">Traction</span>
+            </div>
+
+            <div class="index-item reveal">
+                <h3>Deep Technical + Domain</h3>
+                <div class="description">
+                    Not just an AI wrapper. Privacy-first, on-premise systems using local LLMs, 
+                    vector databases, and custom NLP pipelines. Real engineering for regulated 
+                    industries that can't send data to the cloud.
+                </div>
+                <span class="tag tag-code">Technical Depth</span>
+            </div>
+
+            <div class="index-item reveal">
+                <h3>Built for Partnership</h3>
+                <div class="description">
+                    Ice dance is a sport where you're only as good as your partnership. Every program is co-built. 
+                    You train together, compete together, and push each other to perform at the highest level under pressure. 
+                    Over years of elite partnership I've learned how to align on vision, divide responsibilities, 
+                    communicate under stress, and build something neither person could achieve alone. 
+                    That's not a metaphor for co-founding. It's the same skill.
+                </div>
+                <span class="tag tag-ice">Partnership</span>
+                <span class="tag tag-business">Co-Founder Mindset</span>
+            </div>
+
+            <div class="index-item reveal">
+                <h3>Resilience by Default</h3>
+                <div class="description">
+                    Switched national federations mid-career. Served a mandatory one-year transition period to change country representation. 
+                    Relocated training across continents. Changed coaching teams. Built a startup 
+                    with no safety net. Still here. Still competing. Still building.
+                </div>
+                <span class="tag tag-business">Founder DNA</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="connect" id="connect">
+        <div class="section-header reveal">
+            <span class="section-number">06</span>
+            <h2 class="section-title">Connect</h2>
+        </div>
+
+        <div class="connect-grid reveal">
+            <a href="https://en.wikipedia.org/wiki/Jayin_Panesar" target="_blank" class="connect-link">
+                <span class="link-label">Wikipedia</span>
+                <span class="link-value">Jayin Panesar</span>
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="https://www.linkedin.com/in/jayinpanesar/" target="_blank" class="connect-link">
+                <span class="link-label">LinkedIn</span>
+                <span class="link-value">jayinpanesar</span>
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="https://www.instagram.com/jayinpanesar/" target="_blank" class="connect-link">
+                <span class="link-label">Instagram</span>
+                <span class="link-value">@jayinpanesar</span>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Jayin Panesar · 2026</p>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Nav scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                nav.style.borderBottomColor = 'rgba(34, 34, 34, 0.8)';
+            } else {
+                nav.style.borderBottomColor = 'rgba(34, 34, 34, 0.3)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Smooth anchor scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
